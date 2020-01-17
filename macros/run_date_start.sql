@@ -1,8 +1,9 @@
 {#-
   Gets the run_date_start variable, if it has been provided as a variable. Otherwise gets current_date
   Example:
-    select * from table where date_column > {{ run_date_start() }}
+    select * from table where date_column > {{ datateer.run_date_start() }}
+
 -#}
 {%- macro run_date_start() -%}
-coalesce(nullif('{{ var("run_date_start", null) }}', '')::date, current_date)
+{%- if var("run_date_start", none) is not none -%}'{{ var("run_date_start")}}'::date{%- else -%}current_date - interval '10 days'{%- endif -%}
 {%- endmacro -%}    
