@@ -1,5 +1,5 @@
 name: 'datateer'
-version: '0.1.1'
+version: '0.1.2'
 
 require-dbt-version: ">=0.15.0"
 
