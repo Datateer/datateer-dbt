@@ -12,12 +12,14 @@
   case 
     when left(trim({{str}}), 19) similar to '[0-9]{4}-[0-9]{2}-[0-9]{2}(( |T)[0-9]{2}:[0-9]{2}:[0-9]{2}){0,1}' then left(trim({{str}}), 19) 
     when left(trim({{str}}), 11) similar to '[0-9]{2}-[A-Za-z]{3}-[0-9]{4}' then left(trim({{str}}), 11)
+	when left(trim({{str}}), 10) similar to '[0-9]{2}-[0-9]{2}-[0-9]{4}' then left(trim({{str}}), 10)
     else null 
   end::{{datatype}}
 {%- elif datatype == 'date' -%}
   case 
     when left(trim({{str}}), 5) similar to '[0-9]{4}-[0-9]{2}-[0-9]{2}' then trim({{str}}) 
     when left(trim({{str}}), 11) similar to '[0-9]{2}-[A-Za-z]{3}-[0-9]{4}' then left(trim({{str}}), 11)
+	when left(trim({{str}}), 10) similar to '[0-9]{2}-[0-9]{2}-[0-9]{4}' then left(trim({{str}}), 10)
     else null 
   end::{{datatype}}
 {%- elif datatype == 'int' or datatype == 'bigint' -%}
@@ -34,12 +36,14 @@
   case 
     when left(trim({{str}}), 19) similar to '[0-9]{4}-[0-9]{2}-[0-9]{2}(( |T)[0-9]{2}:[0-9]{2}:[0-9]{2}){0,1}' then left(trim({{str}}), 19) 
     when left(trim({{str}}), 11) similar to '[0-9]{2}-[A-Za-z]{3}-[0-9]{4}' then left(trim({{str}}), 11)
+	when left(trim({{str}}), 10) similar to '[0-9]{2}-[0-9]{2}-[0-9]{4}' then left(trim({{str}}), 10)
     else null 
   end::{{datatype}}
 {%- elif datatype == 'date' -%}
   case 
     when left(trim({{str}}), 5) similar to '[0-9]{4}-' then trim({{str}}) 
     when left(trim({{str}}), 11) similar to '[0-9]{2}-[A-Za-z]{3}-[0-9]{4}' then left(trim({{str}}), 11)
+	when left(trim({{str}}), 10) similar to '[0-9]{2}-[0-9]{2}-[0-9]{4}' then left(trim({{str}}), 10)
     else null 
   end::{{datatype}}
 {%- elif datatype == 'int' or datatype == 'bigint' -%}
