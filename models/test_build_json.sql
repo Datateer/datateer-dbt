@@ -1,4 +1,4 @@
-{% set fields=['my_custom_field', 'field2'] %}
+{% set fields=['my_custom_field', 'better_name:field2'] %}
 
 with cte as (
     select 'my custom value' as my_custom_field,
