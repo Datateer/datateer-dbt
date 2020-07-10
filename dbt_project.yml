@@ -1,7 +1,8 @@
 name: 'datateer'
-version: '0.1.8'
+version: '0.1.9'
+config-version: 2
 
-require-dbt-version: ">=0.15.0"
+require-dbt-version: ">=0.17.0"
 
 # These configurations specify where dbt should look for different types of files.
 # The `source-paths` config, for example, states that models in this project can be
