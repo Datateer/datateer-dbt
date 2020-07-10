@@ -3,6 +3,6 @@
   This macro will just return the value that is passed into it
 -#}
 {%- macro partition_name(name, value) -%}
-  {% set path = 'export_date=' + value %}
+  {% set path = value.replace(value, 'export_date=' + value) %}
   {{ return(path) }}
 {%- endmacro -%}
