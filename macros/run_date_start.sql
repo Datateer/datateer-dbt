@@ -5,5 +5,5 @@
 
 -#}
 {%- macro run_date_start() -%}
-{%- if var("run_date_start", none) is not none -%}'{{ var("run_date_start")}}'::date{%- else -%}current_date - interval '10 days'{%- endif -%}
+{%- if var("run_date_start", none) is not none -%}'{{ var("run_date_start")}}'::date{%- else -%}current_date - interval '1 days'{%- endif -%}
 {%- endmacro -%}    
