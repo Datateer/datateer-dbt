@@ -4,5 +4,5 @@
     select * from table where date_column < {{ datateer.run_date_end() }}
 -#}
 {%- macro run_date_end() -%}
-{%- if var("run_date_start", none) is not none -%}'{{ var("run_date_end")}}'::date{%- else -%}current_date{%- endif -%}
+{%- if var("run_date_end", none) is not none -%}'{{ var("run_date_end")}}'::date{%- else -%}current_date{%- endif -%}
 {%- endmacro -%}
