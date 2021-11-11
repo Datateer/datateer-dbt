@@ -1,5 +1,5 @@
 {%- macro getdate() -%}
-  {{ adapter_macro('datateer.getdate') }}
+  {{ adapter.dispatch('getdate','datateer')() }}
 {%- endmacro -%}
 
 

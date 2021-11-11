@@ -1,5 +1,5 @@
 {%- macro try_cast(datatype, str) -%}
-  {{ adapter_macro('datateer.try_cast', datatype, str) }}
+  {{ adapter.dispatch('try_cast', 'datateer')(datatype, str) }}
 {%- endmacro -%}
 
 
