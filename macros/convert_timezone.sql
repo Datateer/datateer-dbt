@@ -1,5 +1,5 @@
 {%- macro convert_timezone(source_timezone, target_timezone, ts) -%}
-  {{ adapter_macro('datateer.convert_timezone', source_timezone, target_timezone, ts) }}
+  {{ adapter.dispatch('convert_timezone','datateer')(source_timezone, target_timezone, ts) }}
 {%- endmacro -%}
 
 
