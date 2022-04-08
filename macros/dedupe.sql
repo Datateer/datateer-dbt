@@ -15,7 +15,7 @@ with deduped as (
         select {{field_list|join(', ')}},
             row_number() over (partition by {{ key_fields|join(', ') }}{% if sort_fields %} order by {{ sort_fields|join(', ') }}{% endif %}) as rn 
         from {{ model }}
-        {%- if filter_list -%}
+        {% if filter_list -%}
             where {{ filter_list|join('\n and ') }}
         {% endif %}
     ) where rn = 1 -- dedupe
