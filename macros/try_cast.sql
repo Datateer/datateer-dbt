@@ -7,6 +7,17 @@
    {{ exceptions.raise_compiler_error("try_cast isn't supported on this database")}}
 {% endmacro %}
 
+{%- macro bigquery__try_cast(datatype, str) -%}
+{%- if datatype == 'timestamp' or datatype == 'datetime' -%}
+  safe_cast('{{str}}' as datetime)
+{%- elif datatype == 'date' or datatype == 'int' or datatype == 'bigint' or datatype == 'decimal' -%}
+  safe_cast('{{str}}' as {{datatype}})
+{%- else -%}
+  {{ exceptions.raise_compiler_error("The macro try_cast did not recognize the datatype: " + datatype)}}
+{%- endif -%}
+{%- endmacro -%}
+
+
 {%- macro redshift__try_cast(datatype, str) -%}
 {%- if datatype == 'timestamp' -%}
   case 
