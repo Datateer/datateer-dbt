@@ -10,16 +10,16 @@
 {%- macro bigquery__try_cast(datatype, str) -%}
 {%- if datatype == 'timestamp' or datatype == 'datetime' -%}
   safe_cast(case
-      when regexp_contains(left(trim(str), 19), '[0-9]{4}-[0-9]{2}-[0-9]{2}(( |t)[0-9]{2}:[0-9]{2}:[0-9]{2}){0,1}') then left(trim(str), 19)
-      when regexp_contains(left(trim(str), 11), '[0-9]{2}-[a-za-z]{3}-[0-9]{4}') then left(trim(str), 11)
-      when regexp_contains(left(trim(str), 10), '[0-9]{2}-[0-9]{2}-[0-9]{4}') then left(trim(str), 10)
+      when regexp_contains(left(trim({{str}}), 19), '[0-9]{4}-[0-9]{2}-[0-9]{2}(( |t)[0-9]{2}:[0-9]{2}:[0-9]{2}){0,1}') then left(trim({{str}}), 19)
+      when regexp_contains(left(trim({{str}}), 11), '[0-9]{2}-[a-za-z]{3}-[0-9]{4}') then left(trim({{str}}), 11)
+      when regexp_contains(left(trim({{str}}), 10), '[0-9]{2}-[0-9]{2}-[0-9]{4}') then left(trim({{str}}), 10)
       else null
     end as {{datatype}})
 {%- elif datatype == 'date' -%}
   safe_cast(case
-      when regexp_contains(left(trim(str), 19), '[0-9]{4}-[0-9]{2}-[0-9]{2}') then left(trim(str), 10)
-      when regexp_contains(left(trim(str), 11), '[0-9]{2}-[a-za-z]{3}-[0-9]{4}') then left(trim(str), 11)
-      when regexp_contains(left(trim(str), 10), '[0-9]{2}-[0-9]{2}-[0-9]{4}') then left(trim(str), 10)
+      when regexp_contains(left(trim({{str}}), 19), '[0-9]{4}-[0-9]{2}-[0-9]{2}') then left(trim({{str}}), 10)
+      when regexp_contains(left(trim({{str}}), 11), '[0-9]{2}-[a-za-z]{3}-[0-9]{4}') then left(trim({{str}}), 11)
+      when regexp_contains(left(trim({{str}}), 10), '[0-9]{2}-[0-9]{2}-[0-9]{4}') then left(trim({{str}}), 10)
       else null
     end as {{datatype}})
 {%- elif datatype == 'int' or datatype == 'bigint' or datatype == 'decimal' -%}
