@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: prod_run_end_time
+    description: This will log the time of the last successful production run in prefect. Local runs should be ignored.
+    columns:
+      - name: last_successful_prod_run
+        description: The datetime of the last successful run time of prefect in production.
+    config:
+      enabled: "{{ target.name == 'prod' | as_bool }}"
