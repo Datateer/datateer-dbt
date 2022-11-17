@@ -5,5 +5,5 @@
 
 -#}
 {%- macro run_date_start() -%}
-{%- if var("run_date_start", none) is not none -%}'{{ var("run_date_start")}}'::date{%- else -%}current_date - interval '1 days'{%- endif -%}
+{%- if var("run_date_start", none) is not none -%}cast('{{ var("run_date_start")}}' as date){%- else -%}{{ dbt.dateadd(datepart="day", interval=-1, from_date_or_timestamp='current_date') }}{%- endif -%}
 {%- endmacro -%}    
