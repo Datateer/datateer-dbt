@@ -11,11 +11,11 @@
         {{ default_schema }}
     {%- elif target.name == 'prod' -%}
         {# if production, do not do the default behavior of <db>_<schema>, just do <schema> #}
-        {{ log('Environment is prod--overriding default schema creation behavior: ' ~ {{ custom_schema_name | trim }}) }}
+        {{ log('Environment is prod--overriding default schema name creation behavior. Schema name is: ' ~ custom_schema_name | trim) }}
         {{ custom_schema_name | trim }}
     {%- else -%}
         {# in non-prod environments, do the default behavior of <db>_<schema> so we avoid people writing to the prod schema #}
-        {{ log('Environment is ' ~ target.name ~ 'so , using default behavior schema name: ' ~ {{ default_schema }}_{{ custom_schema_name | trim }})}}
+        {{ log('Environment is ' ~ target.name ~ 'so , using default schema name creation behavior. Schema name is: ' ~ default_schema ~ '_' ~ custom_schema_name | trim )}}
         {{ default_schema }}_{{ custom_schema_name | trim }}
     {%- endif -%}
 {%- endmacro %}
