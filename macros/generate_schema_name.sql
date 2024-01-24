@@ -4,12 +4,15 @@
     In short, dbt prefixes custom schema names with the database name, so that multiple environments in the same DW database do not conflict with each other
     The macro below overrides that so that in production, the database name is not prefixed onto the schema name
 #}
+
 {% macro generate_schema_name(custom_schema_name, node) -%}
     {{ log('Running datateer.generate_schema_macro') }}
-    {%- set default_schema = target.schema -%}
+    {%- set default_schema = target.schema or target.dataset -%}
+    {{ print('custom_schema_name: ' ~ custom_schema_name) }}
+    {{ print('default_schema: ' ~ default_schema )}}
     {%- if custom_schema_name is none -%}
         {{ default_schema }}
-    {%- elif target.name == 'main' -%}
+    {%- elif ('database' in target and target.schema.startswith('dw')) or ('dataset' in target and target.dataset.startswith('dw')) -%}
         {# if production, do not do the default behavior of <db>_<schema>, just do <schema> #}
         {{ log('Environment is main--overriding default schema name creation behavior. Schema name is: ' ~ custom_schema_name | trim) }}
         {{ custom_schema_name | trim }}

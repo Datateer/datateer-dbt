@@ -1,0 +1,39 @@
+testing:
+  outputs:
+    test-snowflake-prod:
+      user: "{{ env_var('DBT_USER') }}"
+      schema: "{{ env_var('DBT_SCHEMA_PROD') }}"
+      threads: 20
+      type: snowflake
+      account: "{{ env_var('DBT_HOST') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}" # pragma: allowlist secret
+      database: "{{ env_var('DBT_DATABASE') }}"
+      role: transformer
+      warehouse: transforming
+      client_session_keep_alive: False
+      query_tag: "{{ env_var('DBT_USER') }}"
+    test-snowflake-non-prod:
+      user: "{{ env_var('DBT_USER') }}"
+      schema: "{{ env_var('DBT_SCHEMA_NON_PROD') }}"
+      threads: 20
+      type: snowflake
+      account: "{{ env_var('DBT_HOST') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}" # pragma: allowlist secret
+      database: "{{ env_var('DBT_DATABASE') }}"
+      role: transformer
+      warehouse: transforming
+      client_session_keep_alive: False
+      query_tag: "{{ env_var('DBT_USER') }}"
+      
+    test-bigquery-prod:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('BIGQUERY_PROJECT_ID') }}"
+      dataset: "{{ env_var('BIGQUERY_DATASET_PROD') }}"
+      threads: 8
+    test-bigquery-non-prod:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('BIGQUERY_PROJECT_ID') }}"
+      dataset: "{{ env_var('BIGQUERY_DATASET_NON_PROD') }}"
+      threads: 8

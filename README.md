@@ -25,3 +25,10 @@ The dates seed populates the following columns:
 - week_of_year: numeric week of year, 1 through 53
 - year: numeric year, YYYY
 - is_weekend: true if Saturday or Sunday, false otherwise
+
+
+## Testing
+1. `python -m venv venv && source bin/venv/activate && pip install -r requirements.txt`
+1. Create a file `.env` and populated it with `DBT_PROFILES_DIR="./"` and the variables needed by `profiles.yml`
+
+`dbt run-operation test_generate_schema_name --args '{custom_schema_name: "my_test"}' -t test-bigquery-prod`
