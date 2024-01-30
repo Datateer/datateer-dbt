@@ -8,8 +8,6 @@
 {% macro generate_schema_name(custom_schema_name, node) -%}
     {{ log('Running datateer.generate_schema_macro') }}
     {%- set default_schema = target.schema or target.dataset -%}
-    {{ print('custom_schema_name: ' ~ custom_schema_name) }}
-    {{ print('default_schema: ' ~ default_schema )}}
     {%- if custom_schema_name is none -%}
         {{ default_schema }}
     {%- elif ('database' in target and target.schema.startswith('dw')) or ('dataset' in target and target.dataset.startswith('dw')) -%}
