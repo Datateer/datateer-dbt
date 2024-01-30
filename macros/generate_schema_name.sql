@@ -10,7 +10,7 @@
     {%- set default_schema = target.schema or target.dataset -%}
     {%- if custom_schema_name is none -%}
         {{ default_schema }}
-    {%- elif ('database' in target and target.schema.startswith('dw')) or ('dataset' in target and target.dataset.startswith('dw')) -%}
+    {%- elif custom_schema_name|lower in ('dbt_artifacts') and (('database' in target and target.schema.startswith('dw')) or ('dataset' in target and target.dataset.startswith('dw'))) -%}
         {# if production, do not do the default behavior of <db>_<schema>, just do <schema> #}
         {{ log('Environment is main--overriding default schema name creation behavior. Schema name is: ' ~ custom_schema_name | trim) }}
         {{ custom_schema_name | trim }}
