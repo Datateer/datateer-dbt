@@ -7,17 +7,20 @@
  * append the 'dbt_updated_at' column with the correct timestamp and data type.
  */
 
-{% macro meta_fields() %}
+{% macro meta_fields2() %}
 
     {% if target.type == 'snowflake' %}
         -- Snowflake uses the TIMESTAMP_NTZ data type for timestamps without time zone.
-        CAST(sysdate() AS TIMESTAMP_NTZ) AS dbt_updated_at
+        CAST(sysdate() AS TIMESTAMP_NTZ) AS dbt_updated_at,
+        CAST(DATE_TRUNC('DAY', sysdate()) AS DATE) AS dbt_updated_date
     {% elif target.type == 'bigquery' %}
         -- BigQuery's CURRENT_TIMESTAMP() returns a TIMESTAMP data type.
-        CAST(current_timestamp() AS TIMESTAMP) AS dbt_updated_at
+        CAST(current_timestamp() AS TIMESTAMP) AS dbt_updated_at,
+        CAST(DATE_TRUNC(current_timestamp(), DAY) AS DATE) AS dbt_updated_date
     {% elif target.type == 'redshift' %}
         -- Redshift's SYSDATE is equivalent to GETDATE() in SQL Server, returns a TIMESTAMP without time zone.
-        CAST(SYSDATE AS TIMESTAMP) AS dbt_updated_at
+        CAST(SYSDATE AS TIMESTAMP) AS dbt_updated_at,
+        CAST(DATE_TRUNC('day', SYSDATE) AS DATE) AS dbt_updated_date
     {% else %}
         -- Default case for other warehouses, adjust according to your needs.
         'Unknown' AS dbt_updated_at
