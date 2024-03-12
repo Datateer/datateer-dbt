@@ -7,7 +7,7 @@
  * append the 'dbt_updated_at' column with the correct timestamp and data type.
  */
 
-{% macro meta_fields2() %}
+{% macro meta_fields() %}
 
     {% if target.type == 'snowflake' %}
         -- Snowflake uses the TIMESTAMP_NTZ data type for timestamps without time zone.
