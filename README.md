@@ -4,6 +4,37 @@ Useful macros for dbt projects using postgres and redshift
 
 Copyright 2020 Datateer. All rights reserved.
 
+## Run Date Macros
+
+Macros for filtering data by run date. Pass variables via `--vars` or in `dbt_project.yml`.
+
+### Variables
+
+- **run_date_start** – Explicit date string (e.g. `'2025-03-01'`). Takes precedence over `run_date_start_days_ago`.
+- **run_date_start_days_ago** – Integer; start date = today minus N days (e.g. `7` → 7 days ago).
+- **run_date_end** – Explicit date string for the end bound (used by `run_date_end()` and `between_run_dates`).
+
+### Resolution precedence (run_date_start)
+
+1. If `run_date_start` is set → use that date.
+2. Else if `run_date_start_days_ago` is set → use `current_date - N`.
+3. Else → use `current_date - 1` (default).
+
+### Usage examples
+
+```bash
+# Explicit date
+dbt run --vars '{run_date_start: "2025-02-01"}'
+
+# Days ago (e.g. last 7 days)
+dbt run --vars '{run_date_start_days_ago: 7}'
+
+# Default (yesterday)
+dbt run
+```
+
+Note: `between_run_dates` reads `run_date_start` and `run_date_end` directly and does not support `run_date_start_days_ago`. Use `run_date_start()` in models for days-ago support.
+
 ## Seeds
 
 ### Dates
